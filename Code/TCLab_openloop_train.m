@@ -18,6 +18,11 @@ clear all
 close all
 clc
 tclab;
+script_dir = fileparts(mfilename('fullpath'));
+data_folder = fullfile(script_dir,'matfiles');
+if ~exist(data_folder,'dir')
+    mkdir(data_folder);
+end
 
 % Input parameters
 u_values = [25 22.5 20 17.5 27.5 15 30 12.5];
@@ -40,11 +45,11 @@ first_index = 2*step_duration_samples;
 u(1,1:first_index) = u_values(1);
 u(2,:) = 0;
 
-previous_index = first_index;
+previous_index = first_index + 1;
 for k=2:number_of_steps
-    index = previous_index + step_duration_samples;
+    index = min(previous_index + step_duration_samples - 1,N);
     u(1,previous_index:index) = u_values(k);
-    previous_index = index;
+    previous_index = index + 1;
 
 end
 
@@ -143,8 +148,8 @@ end
 %--------------------------------------------------------------------------
 
 % Save figure and experiment data to file
-exportgraphics(gcf,['matfiles/openloop_plot_',timestr,'.png'],'Resolution',300)
-save(['matfiles/openloop_data_',timestr,'.mat'],'y','u','t');
+exportgraphics(gcf,fullfile(data_folder,['openloop_plot_',timestr,'.png']),'Resolution',300)
+save(fullfile(data_folder,['openloop_data_',timestr,'.mat']),'y','u','t');
 
 %--------------------------------------------------------------------------
 % End of File
