@@ -19,7 +19,7 @@ close all
 clc
 
 try
-    % tclab;
+    tclab;
     run = true;
 catch
     fprintf("Not able to conect to arduino")
