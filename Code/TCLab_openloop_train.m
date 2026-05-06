@@ -17,10 +17,17 @@
 clear all
 close all
 clc
-tclab;
+
+try
+    % tclab;
+    run = true;
+catch
+    fprintf("Not able to conect to arduino")
+    run = false;
+end
 
 % Input parameters
-u_values = [25 22.5 20 17.5 27.5 15 30 12.5];
+u_values = [25 30 22.5 17.5 20 27.5 15 17.5];
 step_duration = 1000;
 
 % Experiment parameters
@@ -48,8 +55,16 @@ for k=2:number_of_steps
 
 end
 
-% plot(u(1,:)) Run section and plot to see if u is well defined
+plot(u(1,:)) % Run section and plot to see if u is well defined
+
 %% Test
+
+if run
+    pass
+else 
+    fprinf('Connect to arduino')
+    return
+end
 
 % Real-time plot flag. If true, plots the input and measured temperature in
 % real time. If false, only plots at the end of the experiment and instead

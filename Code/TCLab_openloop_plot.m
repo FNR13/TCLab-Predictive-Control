@@ -24,3 +24,17 @@ legend('Heater 1','Heater 2','Location','best')
 xlabel('Time [s]')
 ylabel('Heater control [%]')
 ylim([0 100]);
+
+%%
+load('matfiles/model/MSE.mat')
+
+% Create bar graph
+figure;
+theme(figure,"light")
+set(gcf, 'DefaultAxesFontSize', 24) 
+set(gcf, 'DefaultTextFontSize', 24)
+bar(MSE, 'FaceColor', [0.529, 0.808, 0.980]); % Sky blue color
+xlabel('Order n');
+ylabel('MSE');
+title('MSE by Order n');
+grid on;

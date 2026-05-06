@@ -146,5 +146,7 @@ for i=1:length(MSE)
     fprintf('%d: %.4f, ', i, MSE(i));
 end
 fprintf('\n')
+
+save('matfiles/model/MSE.mat', 'MSE')
 %--------------------------------------------------------------------------
 % End of File
