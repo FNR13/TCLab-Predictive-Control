@@ -11,4 +11,14 @@ Usually is `dialout` so:
 
 ```bash
 sudo usermod -a -G dialout $USER
-`` 
+```
+
+Parameter | Value
+Transistors (heaters) | BJT TIP31C in TO-220 package
+Maximum | heater power10 W
+PWM | discretization levels28
+Thermistors (sensors) | TMP36GZ
+Operating range | −40◦ C to 150◦ C
+Sensor accuracy at room temperature | (25◦ C)±1◦ C
+General sensor accuracy | ±2◦ C
+Heater shut-off temperature | 100◦ C
