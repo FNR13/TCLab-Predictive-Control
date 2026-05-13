@@ -17,7 +17,13 @@
 clear all
 close all
 clc
-tclab;
+try
+    tclab;
+    run = true;
+catch
+    fprintf('Not able to connect to Arduino\n')
+    run = false;
+end
 script_dir = fileparts(mfilename('fullpath'));
 data_folder = fullfile(script_dir,'matfiles');
 if ~exist(data_folder,'dir')
@@ -25,7 +31,7 @@ if ~exist(data_folder,'dir')
 end
 
 % Input parameters
-u_values = [25 22.5 20 17.5 27.5 15 30 12.5];
+u_values = [25 30 22.5 17.5 20 27.5 15 17.5];
 step_duration = 1000;
 
 % Experiment parameters
@@ -53,8 +59,14 @@ for k=2:number_of_steps
 
 end
 
-% plot(u(1,:)) Run section and plot to see if u is well defined
+plot(u(1,:)) % Run section and plot to see if u is well defined
+
 %% Test
+
+if ~run
+    fprintf('Connect to Arduino\n')
+    return
+end
 
 % Real-time plot flag. If true, plots the input and measured temperature in
 % real time. If false, only plots at the end of the experiment and instead

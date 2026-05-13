@@ -157,6 +157,7 @@ for i=1:length(MSE)
     fprintf('%d: %.4f, ', i, MSE(i));
 end
 fprintf('\n')
+save(fullfile(model_folder,'MSE.mat'), 'MSE')
 fprintf('Selected model n = %d saved as singleheater_model.mat\n',selected_model_order);
 %--------------------------------------------------------------------------
 % End of File
