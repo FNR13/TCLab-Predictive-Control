@@ -17,13 +17,17 @@
 clear all
 close all
 clc
-
 try
     tclab;
     run = true;
 catch
-    fprintf("Not able to conect to arduino")
+    fprintf('Not able to connect to Arduino\n')
     run = false;
+end
+script_dir = fileparts(mfilename('fullpath'));
+data_folder = fullfile(script_dir,'matfiles');
+if ~exist(data_folder,'dir')
+    mkdir(data_folder);
 end
 
 % Input parameters
@@ -47,11 +51,11 @@ first_index = 2*step_duration_samples;
 u(1,1:first_index) = u_values(1);
 u(2,:) = 0;
 
-previous_index = first_index;
+previous_index = first_index + 1;
 for k=2:number_of_steps
-    index = previous_index + step_duration_samples;
+    index = min(previous_index + step_duration_samples - 1,N);
     u(1,previous_index:index) = u_values(k);
-    previous_index = index;
+    previous_index = index + 1;
 
 end
 
@@ -59,10 +63,8 @@ plot(u(1,:)) % Run section and plot to see if u is well defined
 
 %% Test
 
-if run
-    pass
-else 
-    fprinf('Connect to arduino')
+if ~run
+    fprintf('Connect to Arduino\n')
     return
 end
 
@@ -158,8 +160,8 @@ end
 %--------------------------------------------------------------------------
 
 % Save figure and experiment data to file
-exportgraphics(gcf,['matfiles/openloop_plot_',timestr,'.png'],'Resolution',300)
-save(['matfiles/openloop_data_',timestr,'.mat'],'y','u','t');
+exportgraphics(gcf,fullfile(data_folder,['openloop_plot_',timestr,'.png']),'Resolution',300)
+save(fullfile(data_folder,['openloop_data_',timestr,'.mat']),'y','u','t');
 
 %--------------------------------------------------------------------------
 % End of File

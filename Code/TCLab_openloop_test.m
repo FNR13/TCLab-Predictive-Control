@@ -18,12 +18,18 @@ clear all
 close all
 clc
 tclab;
+script_dir = fileparts(mfilename('fullpath'));
+data_folder = fullfile(script_dir,'matfiles');
+if ~exist(data_folder,'dir')
+    mkdir(data_folder);
+end
 
 % Input parameters
-step_duration = 100;
+u_values = [5 85 5 20 45 80 15 0 15 75 30 15 90 25 5 20 10 55 80 60];
+step_duration = 50;
 
 % Experiment parameters
-T = 1000; % experiment duration [s] 
+T = 1000; % experiment duration [s]
 Ts = 5; % sampling period [s]
 N = T/Ts; % number of samples to collect (bc zero)
 
@@ -32,19 +38,12 @@ step_duration_samples = step_duration / Ts;
 % Open-loop profile
 u = zeros(2,N);
 
-n_steps = T/step_duration;
-possible_values = 0:5:100;
-
 previous_index = 1;
-for k=1:n_steps
-    % Choose a random value
-    randomIndex = randi(length(possible_values), 1);
-    selected_value = possible_values(randomIndex);
-    
-    % Define input to that value
+for k=1:length(u_values)
+    % Define input to the selected validation profile value
     index = previous_index + step_duration_samples - 1;
-    u(1,previous_index:index) = selected_value;
-    previous_index = index;
+    u(1,previous_index:index) = u_values(k);
+    previous_index = index + 1;
 end
 
 % plot(u(1,:)) Run section and plot to see if u is well defined
@@ -142,8 +141,8 @@ end
 %--------------------------------------------------------------------------
 
 % Save figure and experiment data to file
-exportgraphics(gcf,['matfiles/openloop_plot_',timestr,'.png'],'Resolution',300)
-save(['matfiles/openloop_data_',timestr,'.mat'],'y','u','t');
+exportgraphics(gcf,fullfile(data_folder,['openloop_plot_',timestr,'.png']),'Resolution',300)
+save(fullfile(data_folder,['openloop_data_',timestr,'.mat']),'y','u','t');
 
 %--------------------------------------------------------------------------
 % End of File

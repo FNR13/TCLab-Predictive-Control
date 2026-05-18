@@ -15,7 +15,8 @@ close all
 clc
 
 % Load model
-load('singleheater_model.mat','A','B','C','Ke','e_var','y_ss','u_ss','Ts');
+script_dir = fileparts(mfilename('fullpath'));
+load(fullfile(script_dir,'singleheater_model.mat'),'A','B','C','Ke','e_var','y_ss','u_ss','Ts');
 n = size(A,1);
 e_std = sqrt(e_var); % input disturbance standard deviation
 

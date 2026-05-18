@@ -15,11 +15,18 @@ clc
 close all
 
 number_of_iterations = 14;
+selected_model_order = 9;
 MSE = zeros(1, number_of_iterations);
+script_dir = fileparts(mfilename('fullpath'));
+data_folder = fullfile(script_dir,'matfiles');
+model_folder = fullfile(data_folder,'model');
+if ~exist(model_folder,'dir')
+    mkdir(model_folder);
+end
 
 for n=1:number_of_iterations
     % Load data and select the output/input for the first heater only
-    load('matfiles/openloop_data_1.mat','y','u','t');
+    load(fullfile(data_folder,'openloop_data_1.mat'),'y','u','t');
     u = u(1,:);
     y = y(1,:);
     
@@ -46,7 +53,11 @@ for n=1:number_of_iterations
     sys = ssest(Du',Dy',n,'Ts',Ts);
     [A,B,C,~,Ke] = idssdata(sys);
     e_var = sys.NoiseVariance;
-    save(['matfiles/model/singleheater_model_', num2str(n), '.mat'],'A','B','C','Ke','e_var','y_ss','u_ss','Ts');
+    save(fullfile(model_folder,sprintf('singleheater_model_%d.mat',n)),'A','B','C','Ke','e_var','y_ss','u_ss','Ts');
+    if n == selected_model_order
+        save(fullfile(model_folder,'singleheater_model.mat'),'A','B','C','Ke','e_var','y_ss','u_ss','Ts');
+        save(fullfile(script_dir,'singleheater_model.mat'),'A','B','C','Ke','e_var','y_ss','u_ss','Ts');
+    end
     
     %% Test on dataset 1, with which the model was identified
     
@@ -89,9 +100,9 @@ for n=1:number_of_iterations
     xlim([t(1),t(end)]);
     
     %% Test on dataset 2, with which the model was not identified
-    
+
     % Load data and select the output/input for the first heater only
-    load('matfiles/openloop_data_2.mat','y','u','t');
+    load(fullfile(data_folder,'openloop_data_2.mat'),'y','u','t');
     u = u(1,:);
     y = y(1,:);
     
@@ -146,7 +157,7 @@ for i=1:length(MSE)
     fprintf('%d: %.4f, ', i, MSE(i));
 end
 fprintf('\n')
-
-save('matfiles/model/MSE.mat', 'MSE')
+save(fullfile(model_folder,'MSE.mat'), 'MSE')
+fprintf('Selected model n = %d saved as singleheater_model.mat\n',selected_model_order);
 %--------------------------------------------------------------------------
 % End of File
