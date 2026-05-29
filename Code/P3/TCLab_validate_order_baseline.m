@@ -18,7 +18,7 @@ baseline_order = 2;
 selected_orders = [7 9];
 orders_to_validate = unique([baseline_order selected_orders]);
 
-validation_data = fullfile(data_folder,'openloop_data_2.mat');
+validation_data = fullfile(data_folder,'openloop_data_test.mat');
 mse_by_order = loadMSEByOrder(model_folder);
 
 validation_results = struct([]);

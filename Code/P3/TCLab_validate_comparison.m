@@ -3,7 +3,7 @@ clc;
 close all;
 
 %% Input
-orders_to_compare = [2, 6, 9, 14];
+orders_to_compare = [2, 6, 9];
 
 script_dir = fileparts(mfilename('fullpath'));
 data_folder = fullfile(script_dir, 'matfiles');

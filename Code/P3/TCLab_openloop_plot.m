@@ -4,13 +4,11 @@ clc
 
 script_dir = fileparts(mfilename('fullpath'));
 data_folder = fullfile(script_dir,'matfiles');
-load(fullfile(data_folder,'openloop_data_1.mat'),'y','u','t');
+load(fullfile(data_folder,'openloop_data_train.mat'),'y','u','t');
 
-for n = 1:3
+for n = 1:2
     if n==2
-        load(fullfile(data_folder,'openloop_data_2.mat'),'y','u','t');
-    elseif n==3
-        load(fullfile(data_folder,'openloop_data_3.mat'),'y','u','t');
+        load(fullfile(data_folder,'openloop_data_test.mat'),'y','u','t');
     end
 
     figure

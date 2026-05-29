@@ -15,8 +15,8 @@ clc
 close all
 
 number_of_iterations = 14;
-selected_model_order = 9;
-selected_models_to_save_image = [1, 2, 6, 9, 14];
+selected_model_order = 2;
+selected_models_to_save_image = [1, 2, 6, 10, 14];
 
 MSE = zeros(1, number_of_iterations);
 Variance = zeros(1, number_of_iterations);
@@ -30,7 +30,7 @@ model_folder = fullfile(data_folder,'model');
 %% Identification
 for n=1:number_of_iterations
     % Load data and select the output/input for the first heater only
-    load(fullfile(data_folder,'openloop_data_1.mat'),'y','u','t');
+    load(fullfile(data_folder,'openloop_data_train.mat'),'y','u','t');
     u = u(1,:);
     y = y(1,:);
     
@@ -113,7 +113,7 @@ for n=1:number_of_iterations
     %% Test on dataset 2, with which the model was not identified
 
     % Load data and select the output/input for the first heater only
-    load(fullfile(data_folder,'openloop_data_2.mat'),'y','u','t');
+    load(fullfile(data_folder,'openloop_data_test.mat'),'y','u','t');
     u = u(1,:);
     y = y(1,:);
     
