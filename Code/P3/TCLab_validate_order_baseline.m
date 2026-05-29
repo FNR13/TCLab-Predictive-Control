@@ -55,7 +55,7 @@ function mse = plotValidationOrder(order, validation_data, model_folder, output_
     result = simulateValidation(order, validation_data, model_folder);
     mse = result.mse;
 
-    fig = figure('Visible','off','Units','pixels','Position',[100 100 1200 750]);
+    fig = figure('Visible','Off','Units','pixels','Position',[100 100 1200 750]);
     set(fig, 'Color', 'w');
     set(fig, 'DefaultAxesFontSize', 16);
     set(fig, 'DefaultTextFontSize', 16);
