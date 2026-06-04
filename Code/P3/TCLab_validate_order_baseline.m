@@ -13,6 +13,7 @@ close all
 script_dir = fileparts(mfilename('fullpath'));
 data_folder = fullfile(script_dir,'matfiles');
 model_folder = fullfile(data_folder,'model');
+out_dir    = fullfile(script_dir, '..', 'figs');
 
 baseline_order = 2;
 selected_orders = [7 9];
@@ -26,11 +27,11 @@ for i = 1:numel(orders_to_validate)
     order = orders_to_validate(i);
     validation_results(i).order = order;
     validation_results(i).reference_mse = mse_by_order(order);
-    validation_results(i).simulated_mse = plotValidationOrder(order, validation_data, model_folder, data_folder);
+    validation_results(i).simulated_mse = plotValidationOrder(order, validation_data, model_folder, out_dir);
 end
 
 for i = 1:numel(selected_orders)
-    plotValidationComparison(baseline_order, selected_orders(i), validation_data, model_folder, data_folder);
+    plotValidationComparison(baseline_order, selected_orders(i), validation_data, model_folder, out_dir);
 end
 
 fprintf('Validation reference MSE values from MSE.mat:\n')

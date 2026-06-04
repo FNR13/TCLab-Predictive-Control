@@ -1,4 +1,4 @@
-% Simulation of the TCLab linear model previously identified
+´% Simulation of the TCLab linear model previously identified
 %
 % Loads the model identified in the TCLab_identification script, creates
 % the h1 and T1C functions that mimick the TCLab interface, and performs a

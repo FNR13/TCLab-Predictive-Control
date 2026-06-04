@@ -17,7 +17,7 @@ clear; close all; clc;
 script_dir = fileparts(mfilename('fullpath'));
 common_dir = fullfile(script_dir, '..', 'Common');
 addpath(common_dir);
-fig_dir    = fullfile(script_dir, '..', '..', '..', 'Imagens');
+fig_dir    = fullfile(script_dir, '..', 'figs');
 if ~exist(fig_dir,'dir'); mkdir(fig_dir); end
 
 % ----- model (nominal) ---------------------------------------------------

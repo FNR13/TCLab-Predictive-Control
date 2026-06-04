@@ -19,7 +19,7 @@ clear; close all; clc;
 script_dir = fileparts(mfilename('fullpath'));
 common_dir = fullfile(script_dir, '..', 'Common');
 addpath(common_dir);
-out_dir    = fullfile(script_dir, '..', '..', '..', 'Imagens');
+out_dir    = fullfile(script_dir, '..', 'figs');
 if ~exist(out_dir,'dir'); mkdir(out_dir); end
 
 set(0,'DefaultFigureColor','w','DefaultAxesColor','w', ...
